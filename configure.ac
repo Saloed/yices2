@@ -156,34 +156,6 @@ WORDS_BIGENDIAN=""
 AC_C_BIGENDIAN([WORDS_BIGENDIAN=yes],[WORDS_BIGENDIAN=no],[WORDS_BIGENDIAN=yes])
 AC_SUBST(WORDS_BIGENDIAN)
 
-dnl
-dnl CHECK_THREAD_LOCAL
-dnl ------------------
-dnl check whether we can declare variables with the __thread
-dnl attribute. If not we assume the platform doesn't support
-dnl thread-local storage.
-dnl
-dnl result: $has_tls is "yes" if the __thread attribute is supported
-dnl         $has_tls is "no" otherwise
-dnl
-AC_DEFUN([CSL_CHECK_THREAD_LOCAL],
-[
-save_cppflags=$CPPFLAGS
-save_libs=$LIBS
-AC_MSG_CHECKING([for thread-local storage support])
-AC_RUN_IFELSE(
-[AC_LANG_PROGRAM([[__thread int test;]],
-                 [[]])],
-has_tls=yes,has_tls=no,has_tls=no)
-AC_MSG_RESULT([$has_tls])
-#
-# restore CPPFLAGS and LIBS
-#
-CPPFLAGS=$save_cppflags
-LIBS=$save_libs
-])
-
-
 
 dnl
 dnl GMP Libraries
@@ -878,13 +850,7 @@ dnl -------------------------------------
 dnl
 AC_SUBST(HAVE_TLS)
 if test "x$thread_safe" = xyes ; then
-   has_tls=""
-   CSL_CHECK_THREAD_LOCAL
-   if test "x$has_tls" = xyes; then
-      HAVE_TLS=1
-   else
-      AC_MSG_ERROR([Building with --enable-thread-safety requires thread-local storage])
-   fi
+   HAVE_TLS=1
 fi
 
 

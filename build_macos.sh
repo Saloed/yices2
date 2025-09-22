@@ -27,7 +27,7 @@ make MODE=release ARCH=arm64-apple-darwin20.2 POSIXOS=darwin show-details clean 
 llvm-install-name-tool-18 -id libyices.2.dylib dist-mac/lib/libyices.2.dylib
 
 mkdir -p dist-mac/dist
-cp dist-mac/lib/libyices.2.dylib dist-mac/dist/libyices.dylib
+cp dist-mac/lib/libyices.2.dylib dist-mac/dist/
 
 cd java-bindings
 INSTALL_DIR=/mnt/dist-mac/dist ./build_macos.sh

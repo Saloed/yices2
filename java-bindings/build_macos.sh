@@ -22,7 +22,7 @@ cd build-mac
 
 cp ../src/main/java/com/sri/yices/yicesJNI.cpp .
 
-$JAVAC -h . ../src/main/java/com/sri/yices/*.java
+$JAVAC -d . -h . ../src/main/java/com/sri/yices/*.java
 
 $CXX $LD_STATIC_FLAGS $CPPFLAGS $CXXFLAGS -c yicesJNI.cpp
 

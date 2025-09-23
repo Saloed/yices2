@@ -21,13 +21,15 @@ YICES_2_JAVA_LIB_NAME="libyices2java.$LIB_EXTENSION"
 
 cd yices2_java_bindings
 
-rm -rf build
-mkdir build
-cd build
+rm -rf build-linux
+mkdir build-linux
+cd build-linux
 
 cp ../src/main/java/com/sri/yices/yicesJNI.cpp .
 
-$JAVAC -h . ../src/main/java/com/sri/yices/*.java
+$JAVAC -d . -h . ../src/main/java/com/sri/yices/*.java
+
+jar -cvf ./yices.jar ./com/sri/yices/*.class
 
 $CXX $LD_STATIC_FLAGS $CPPFLAGS $CXXFLAGS -c yicesJNI.cpp
 

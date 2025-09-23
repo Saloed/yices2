@@ -1,6 +1,6 @@
 export MACOSX_DEPLOYMENT_TARGET=11.1
-#apt-get install -y openjdk-8-jdk
-#omp install openjdk11
+apt-get install -y openjdk-8-jdk
+omp install openjdk11
 
 apt-get install -y autoconf gperf
 

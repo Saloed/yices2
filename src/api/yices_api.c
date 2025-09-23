@@ -11987,6 +11987,43 @@ int32_t _o_yices_val_get_scalar(model_t *mdl, const yval_t *v, int32_t *val, typ
   return -1;
 }
 
+int32_t _o_yices_model_num_uninterpreted_values(model_t *mdl) {
+    int32_t num_uninterpeted = 0;
+    value_table_t *vtbl = model_get_vtbl(mdl);
+
+    for (int i = 0; i < vtbl->nobjects; ++i) {
+        if (good_object(vtbl, i) && object_is_unint(vtbl, i)){
+            num_uninterpeted++;
+        }
+    }
+    return num_uninterpeted;
+}
+
+EXPORTED int32_t yices_model_num_uninterpreted_values(model_t *mdl) {
+    MT_PROTECT(int32_t,  __yices_globals.lock, _o_yices_model_num_uninterpreted_values(mdl));
+}
+
+int32_t _o_yices_model_get_uninterpreted_values(model_t *mdl, int32_t *tags, int32_t *ids) {
+    int32_t num_uninterpeted = 0;
+    value_table_t *vtbl = model_get_vtbl(mdl);
+
+    for (int i = 0; i < vtbl->nobjects; ++i) {
+        if (good_object(vtbl, i) && object_is_unint(vtbl, i)){
+            yval_t val;
+            get_yval(vtbl, i, &val);
+
+            tags[num_uninterpeted] = val.node_tag;
+            ids[num_uninterpeted] = val.node_id;
+            num_uninterpeted++;
+        }
+    }
+
+    return 0;
+}
+
+EXPORTED int32_t yices_model_get_uninterpreted_values(model_t *mdl, int32_t *tags, int32_t *ids){
+    MT_PROTECT(int32_t,  __yices_globals.lock, _o_yices_model_get_uninterpreted_values(mdl, tags, ids));
+}
 
 /*
  * Expand a tuple node

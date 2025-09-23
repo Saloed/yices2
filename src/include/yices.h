@@ -4361,6 +4361,10 @@ __YICES_DLLSPEC__ extern int32_t yices_val_get_bv(model_t *mdl, const yval_t *v,
  */
 __YICES_DLLSPEC__ extern int32_t yices_val_get_scalar(model_t *mdl, const yval_t *v, int32_t *val, type_t *tau);
 
+__YICES_DLLSPEC__ extern int32_t yices_model_num_uninterpreted_values(model_t *mdl);
+
+__YICES_DLLSPEC__ extern int32_t yices_model_get_uninterpreted_values(model_t *mdl, int32_t *tags, int32_t *ids);
+
 /*
  * Expand a tuple node:
  * - child must be an array large enough to store all children of v (i.e.,
